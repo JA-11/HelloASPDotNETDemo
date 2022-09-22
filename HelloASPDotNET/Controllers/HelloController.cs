@@ -9,7 +9,7 @@ namespace HelloASPDotNET.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            string html = "<form method='post' action='/helloworld/'>" +
+            string html = "<form method='post' action='/helloworld/form'>" +
                   "<input type='text' name='name' />" +
                   "<select name='language'>" +
                   "<option value='english'>English</option>" +
@@ -23,12 +23,11 @@ namespace HelloASPDotNET.Controllers
             return Content(html, "text/html");
         }
 
-
-        [HttpGet("welcome/{name?}")]
-        [HttpPost("welcome")]
-        public IActionResult Welcome(string name = "World")
+        [HttpPost]
+        [Route("form")]
+        public IActionResult Display(string name = "World", string language = "english")
         {
-            return Content("<h1>Welcome to my app, " + name + "!</h1>", "text/html");
+            return Content(CreateMessage(name,language));
         }
 
 
