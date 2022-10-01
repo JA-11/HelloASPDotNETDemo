@@ -1,59 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
+// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HelloASPDotNET.Controllers
 {
-    [Route("/helloworld")]
     public class HelloController : Controller
     {
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
-            string html = "<form method='post' action='/helloworld/form'>" +
-                  "<input type='text' name='name' />" +
-                  "<select name='language'>" +
-                  "<option value='english'>English</option>" +
-                  "<option value='spanish'>Spanish</option>" +
-                  "<option value='french'>French</option>" +
-                  "<option value='german'>German</option>" +
-                  "<option value='italian'>Italian</option> <select/>" +
-                  "<input type='submit' value='Greet Me!' />" +
-                  "</form>";
-
-            return Content(html, "text/html");
+            return View();
         }
 
         [HttpPost]
-        [Route("form")]
-        public IActionResult Display(string name = "World", string language = "english")
+        [Route("/hello")]
+        public IActionResult Welcome(string name = "World")
         {
-            return Content(CreateMessage(name,language));
+            ViewBag.person = name;
+            return View();
         }
-
-
-        public static string CreateMessage(string name, string language)
-        {
-            if (language == "spanish")
-            {
-                return $"Hola {name}!";
-            }
-            else if (language == "french")
-            {
-                return $"Bonjour {name}!";
-            }
-            else if (language == "german")
-            {
-                return $"Hallo {name}!";
-            }
-            else if (language == "italian")
-            {
-                return $"Ciao {name}!";
-            }
-            else
-            {
-                return $"Hello {name}!";
-            }
-        }
-
     }
 }
